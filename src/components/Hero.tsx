@@ -1,17 +1,55 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Brain, Calendar, MessageSquare, FileText } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const Hero = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [currentMemory, setCurrentMemory] = useState(0);
+  
+  const memories = [
+    {
+      icon: Brain,
+      title: "Meeting Summary Generated",
+      time: "2 min ago",
+      content: "Captured key decisions from team standup",
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: Calendar,
+      title: "Task Extracted",
+      time: "5 min ago", 
+      content: "Follow up with client by Friday",
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: MessageSquare,
+      title: "Decision Captured",
+      time: "8 min ago",
+      content: "Approved new design direction",
+      color: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: FileText,
+      title: "Note Saved",
+      time: "12 min ago",
+      content: "Restaurant recommendation from Sarah",
+      color: "from-orange-500 to-red-500"
+    }
+  ];
+  
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
     
+    const interval = setInterval(() => {
+      setCurrentMemory((prev) => (prev + 1) % memories.length);
+    }, 3000);
+    
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      clearInterval(interval);
     };
   }, []);
 
@@ -31,13 +69,12 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-4 pt-28 pb-20 relative z-10">
-        <div className="flex items-center justify-center min-h-screen relative">
-
-
-          {/* Center Content */}
-          <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up px-4">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
+          
+          {/* Left Side - Content */}
+          <div className="space-y-8 animate-fade-in-up">
             {/* Badge */}
-            <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm border border-purple-500/30 rounded-full px-6 py-3">
+            <div className="inline-flex items-center space-x-3 rounded-full px-6 py-3">
               <Sparkles className="w-5 h-5 text-purple-400 animate-spin" style={{ animationDuration: '3s' }} />
               <span className="text-sm font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 AI-Powered Personal Assistant
@@ -45,7 +82,7 @@ const Hero = () => {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-6xl lg:text-7xl xl:text-8xl font-black leading-tight tracking-tight">
+            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tight text-left">
               Your Personal
               <br />
               <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
@@ -56,14 +93,12 @@ const Hero = () => {
             </h1>
             
             {/* Subtitle */}
-            <div className="text-2xl lg:text-3xl font-bold text-gray-300">
+            <div className="text-xl lg:text-2xl font-bold text-gray-300 text-left">
               Remember Everything, <span className="text-white">Forget Nothing</span>
             </div>
             
-
-
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6">
               <Button 
                 size="lg" 
                 onClick={() => {
@@ -89,8 +124,57 @@ const Hero = () => {
                 Watch Magic
               </Button>
             </div>
+          </div>
 
-
+          {/* Right Side - Memory Timeline */}
+          <div className="relative hidden lg:block">
+            {/* Timeline Line */}
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-pink-500 to-blue-500 opacity-30"></div>
+            
+            {/* Memory Cards */}
+            <div className="space-y-6">
+              {memories.map((memory, index) => {
+                const isActive = index === currentMemory;
+                const isPast = index < currentMemory;
+                const IconComponent = memory.icon;
+                
+                return (
+                  <div 
+                    key={index}
+                    className={`relative flex items-start space-x-4 transition-all duration-1000 ${
+                      isActive ? 'animate-slide-in-right opacity-100 scale-105' : 
+                      isPast ? 'opacity-60 scale-95' : 'opacity-40 scale-90'
+                    }`}
+                  >
+                    {/* Timeline Dot */}
+                    <div className={`relative z-10 w-4 h-4 rounded-full border-2 border-white ${
+                      isActive ? 'bg-gradient-to-r ' + memory.color + ' animate-pulse shadow-lg' : 
+                      isPast ? 'bg-gray-400' : 'bg-gray-600'
+                    }`}>
+                      {isActive && (
+                        <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${memory.color} animate-ping opacity-75`}></div>
+                      )}
+                    </div>
+                    
+                    {/* Memory Card */}
+                    <div className={`bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-2xl max-w-sm ${
+                      isActive ? 'shadow-purple-500/20 border-white/40' : ''
+                    }`}>
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-r ${memory.color} flex items-center justify-center`}>
+                          <IconComponent className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-white text-sm">{memory.title}</h3>
+                          <p className="text-gray-300 text-xs">{memory.time}</p>
+                        </div>
+                      </div>
+                      <p className="text-gray-200 text-sm leading-relaxed">{memory.content}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

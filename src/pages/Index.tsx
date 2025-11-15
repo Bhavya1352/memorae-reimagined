@@ -1,15 +1,13 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import EmotionalStory from "@/components/EmotionalStory";
+import VoiceListener from "@/components/VoiceListener";
+import AISearch from "@/components/AISearch";
+import AutoSummarizer from "@/components/AutoSummarizer";
 import PeaceOfMind from "@/components/PeaceOfMind";
 import Superpowers from "@/components/Superpowers";
-import PainPoint from "@/components/PainPoint";
-import ReminderShowcase from "@/components/ReminderShowcase";
 import Features from "@/components/Features";
-import WhatsAppDemo from "@/components/WhatsAppDemo";
-import HowItWorks from "@/components/HowItWorks";
-import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
-import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -17,16 +15,14 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <Hero />
+      <EmotionalStory />
+      <VoiceListener />
+      <AISearch />
+      <AutoSummarizer />
       <PeaceOfMind />
       <Superpowers />
-      <Pricing />
-      <PainPoint />
-      <ReminderShowcase />
       <Features />
-      <WhatsAppDemo />
-      <HowItWorks />
-      <Testimonials />
-      <CTA />
+      <Pricing />
       <Footer />
     </div>
   );
