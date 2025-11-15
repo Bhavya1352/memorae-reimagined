@@ -64,15 +64,32 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm mb-4 md:mb-0">
-            © 2024 Memorae. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-2 text-muted-foreground text-sm">
-            <Mail className="w-4 h-4" />
-            <a href="mailto:hello@memorae.ai" className="hover:text-primary transition-colors">
-              hello@memorae.ai
-            </a>
+        <div className="border-t border-border pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+            <p className="text-muted-foreground text-sm mb-4 md:mb-0">
+              © 2024 Memorae. All rights reserved.
+            </p>
+            <div className="flex items-center space-x-2 text-muted-foreground text-sm">
+              <Mail className="w-4 h-4" />
+              <a href="mailto:hello@memorae.ai" className="hover:text-primary transition-colors">
+                hello@memorae.ai
+              </a>
+            </div>
+          </div>
+          
+          {/* Privacy Note */}
+          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="flex items-start space-x-3">
+              <div className="text-2xl">🔒</div>
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-2">Your Privacy is Our Priority</h4>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  All your memories are encrypted end-to-end and stored securely. We never share your personal data with third parties. 
+                  Your conversations with Memorae are completely private and belong only to you. 
+                  <a href="#" className="text-primary hover:underline ml-1">Read our Privacy Policy</a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

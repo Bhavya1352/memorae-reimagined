@@ -54,74 +54,91 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen text-white overflow-hidden" style={{backgroundImage: 'url(/bg1.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+    <section className="relative min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white overflow-hidden">
       {/* Dynamic Background */}
       <div className="absolute inset-0">
         <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl transition-all duration-1000 ease-out"
+          className="absolute w-96 h-96 bg-gradient-to-r from-yellow-500/30 to-pink-500/30 rounded-full blur-3xl transition-all duration-1000 ease-out"
           style={{
             left: mousePosition.x - 192,
             top: mousePosition.y - 192,
           }}
         />
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-pink-500/10 to-red-500/10 rounded-full blur-3xl animate-bounce" style={{ animationDuration: '3s' }} />
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-pink-500/20 to-yellow-500/20 rounded-full blur-3xl animate-bounce" style={{ animationDuration: '3s' }} />
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
       
-      <div className="container mx-auto px-4 pt-28 pb-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
+      <div className="container mx-auto px-4 pt-32 pb-20 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-screen">
           
           {/* Left Side - Content */}
-          <div className="space-y-8 animate-fade-in-up">
+          <div className="space-y-8 animate-fade-in-up lg:pr-8">
             {/* Badge */}
-            <div className="inline-flex items-center space-x-3 rounded-full px-6 py-3">
-              <Sparkles className="w-5 h-5 text-purple-400 animate-spin" style={{ animationDuration: '3s' }} />
-              <span className="text-sm font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                AI-Powered Personal Assistant
+            <div className="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
+              <Sparkles className="w-5 h-5 text-yellow-400 animate-spin" style={{ animationDuration: '3s' }} />
+              <span className="text-sm font-semibold text-white">
+                🏆 Award-Winning AI Memory Assistant
               </span>
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight text-left">
-              Never Forget Important
+            <h1 className="text-6xl md:text-7xl font-black leading-tight tracking-tight text-left">
+              Your Brain's
               <br />
-              <span className="bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
-                Moments
+              <span className="bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
+                Best Friend
               </span>
-              {" "}Again
             </h1>
             
             {/* Subtitle */}
-            <p className="text-xl text-gray-300 text-left leading-relaxed">
-              Your AI-powered memory assistant captures, organizes, and recalls everything through natural conversation.
+            <p className="text-2xl text-gray-200 text-left leading-relaxed font-light">
+              Never forget important conversations, ideas, or tasks again. 
+              <span className="text-white font-semibold">Memorae remembers everything</span> so you can focus on what matters.
             </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6">
               <Button 
                 size="lg" 
                 onClick={() => {
                   const pricingSection = document.getElementById('pricing');
                   pricingSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-purple-500/30 transition-all duration-200 hover:scale-[1.03]"
+                className="group bg-gradient-to-r from-yellow-500 via-pink-500 to-purple-500 hover:from-yellow-600 hover:via-pink-600 hover:to-purple-600 text-white px-12 py-6 text-xl font-bold rounded-2xl shadow-2xl hover:shadow-yellow-500/30 transition-all duration-300 hover:scale-105"
               >
-                Get Started Free
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                🚀 Start Free Trial
+                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
               </Button>
               
               <Button 
                 size="lg" 
-                variant="ghost" 
+                variant="outline" 
                 onClick={() => {
                   const voiceSection = document.getElementById('voice-demo');
                   voiceSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="text-white hover:bg-white/10 px-8 py-4 text-lg rounded-xl transition-all duration-200 hover:scale-[1.03]"
+                className="border-2 border-white/50 bg-white/10 text-white hover:bg-white/20 hover:border-white/70 px-12 py-6 text-xl rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105"
               >
-                <Sparkles className="mr-2 w-5 h-5" />
+                <Sparkles className="mr-3 w-6 h-6" />
                 Watch Demo
               </Button>
+            </div>
+            
+            {/* Trust Indicators */}
+            <div className="flex items-center space-x-8 pt-8">
+              <div className="flex items-center space-x-2">
+                <div className="text-2xl">⭐</div>
+                <span className="text-white font-semibold">4.9/5 Rating</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="text-2xl">🔒</div>
+                <span className="text-white font-semibold">100% Private</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="text-2xl">⚡</div>
+                <span className="text-white font-semibold">Instant Setup</span>
+              </div>
             </div>
           </div>
 

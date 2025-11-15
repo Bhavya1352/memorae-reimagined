@@ -1,9 +1,8 @@
 import StickyNavigation from "@/components/StickyNavigation";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
+import ChatMockup from "@/components/ChatMockup";
 import VoiceListener from "@/components/VoiceListener";
-import AISearch from "@/components/AISearch";
-import AutoSummarizer from "@/components/AutoSummarizer";
 import Superpowers from "@/components/Superpowers";
 import Features from "@/components/Features";
 import Pricing from "@/components/Pricing";
@@ -17,6 +16,7 @@ const Index = () => {
       <StickyNavigation />
       <Hero />
       <HowItWorks />
+      <ChatMockup />
       <VoiceListener />
       <Superpowers />
       <Features />
