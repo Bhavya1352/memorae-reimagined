@@ -1,68 +1,174 @@
-import { Upload, Sparkles, Share2 } from "lucide-react";
+import React from "react";
+import { Upload, Brain, Heart, Users, ArrowRight, CheckCircle } from "lucide-react";
+import { useState } from "react";
 
-const steps = [
+const journeySteps = [
   {
     icon: Upload,
-    title: "Upload Your Memories",
-    description: "Simply upload your photos, videos, and documents. We support all major formats and even old physical media through our scanning service.",
-    number: "01"
+    title: "Begin Your Journey",
+    description: "Upload photos, videos, documents, or even connect your social media. Our platform accepts everything that holds your memories.",
+    details: ["Drag & drop interface", "Bulk upload support", "Social media sync", "Cloud import"],
+    color: "primary",
+    number: 1
   },
   {
-    icon: Sparkles,
-    title: "AI Does the Magic",
-    description: "Our advanced AI automatically organizes, enhances, and creates beautiful stories from your memories. No manual work required.",
-    number: "02"
+    icon: Brain,
+    title: "AI Understanding",
+    description: "Our advanced AI analyzes your content, recognizing faces, places, emotions, and relationships to build your memory map.",
+    details: ["Face recognition", "Location detection", "Emotion analysis", "Smart tagging"],
+    color: "secondary",
+    number: 2
   },
   {
-    icon: Share2,
-    title: "Share & Preserve",
-    description: "Share with loved ones, create albums, and ensure your memories are preserved for future generations with cloud backup.",
-    number: "03"
+    icon: Heart,
+    title: "Story Creation",
+    description: "Watch as your memories transform into beautiful narratives, timelines, and interactive experiences.",
+    details: ["Auto-generated stories", "Timeline creation", "Memory connections", "Narrative flow"],
+    color: "accent",
+    number: 3
+  },
+  {
+    icon: Users,
+    title: "Share & Connect",
+    description: "Invite family and friends to contribute their memories and perspectives, building a richer, shared legacy.",
+    details: ["Family collaboration", "Private sharing", "Memory contributions", "Legacy building"],
+    color: "primary",
+    number: 4
   }
 ];
 
 const HowItWorks = () => {
+  const [activeStep, setActiveStep] = useState(0);
+
   return (
-    <section id="how-it-works" className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-muted/30"></div>
+    <section id="how-it-works" className="py-32 relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/5 to-background"></div>
+      <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-secondary/5 rounded-full blur-3xl"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-            Simple as <span className="gradient-text">1, 2, 3</span>
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-5xl lg:text-6xl font-bold mb-6">
+            Your Memory Journey
+            <br />
+            <span className="gradient-text">Simplified</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Get started in minutes and let AI handle the rest
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            From scattered photos to meaningful stories in four simple steps. 
+            Let our AI guide you through the transformation.
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto">
-          <div className="relative">
-            {/* Connection Line */}
-            <div className="hidden lg:block absolute top-1/2 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent opacity-20 transform -translate-y-1/2"></div>
-
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-              {steps.map((step, index) => (
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop Timeline View */}
+          <div className="hidden lg:block">
+            <div className="relative">
+              {/* Progress Line */}
+              <div className="absolute top-24 left-0 w-full h-1 bg-muted rounded-full">
                 <div 
-                  key={index} 
-                  className="relative bg-card border border-border rounded-3xl p-8 hover-lift"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  {/* Number Badge */}
-                  <div className="absolute -top-6 left-8 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                    {step.number}
-                  </div>
+                  className="h-full bg-gradient-to-r from-primary via-secondary to-accent rounded-full transition-all duration-1000"
+                  style={{ width: `${((activeStep + 1) / journeySteps.length) * 100}%` }}
+                ></div>
+              </div>
 
-                  <div className="mt-8 mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center mb-6">
-                      <step.icon className="w-8 h-8 text-primary" />
+              {/* Steps */}
+              <div className="grid grid-cols-4 gap-8">
+                {journeySteps.map((step, index) => (
+                  <div 
+                    key={index}
+                    className={`relative cursor-pointer transition-all duration-500 ${
+                      activeStep === index ? 'scale-105' : 'hover:scale-102'
+                    }`}
+                    onClick={() => setActiveStep(index)}
+                  >
+                    {/* Step Circle */}
+                    <div className={`w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6 transition-all duration-500 ${
+                      activeStep >= index 
+                        ? `bg-gradient-to-br from-${step.color} to-${step.color}/70 text-white shadow-lg shadow-${step.color}/25` 
+                        : 'bg-muted text-muted-foreground'
+                    }`}>
+                      {activeStep > index ? (
+                        <CheckCircle className="w-8 h-8" />
+                      ) : (
+                        React.createElement(step.icon, { className: "w-8 h-8" })
+                      )}
                     </div>
-                    <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+
+                    {/* Step Content */}
+                    <div className={`text-center transition-all duration-500 ${
+                      activeStep === index ? 'opacity-100' : 'opacity-70'
+                    }`}>
+                      <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-4">{step.description}</p>
+                      
+                      {/* Details (shown for active step) */}
+                      {activeStep === index && (
+                        <div className="bg-card border border-border rounded-xl p-4 mt-4 animate-fade-in-up">
+                          <ul className="space-y-2">
+                            {step.details.map((detail, detailIndex) => (
+                              <li key={detailIndex} className="flex items-center text-sm">
+                                <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                                <span>{detail}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
+          </div>
+
+          {/* Mobile Accordion View */}
+          <div className="lg:hidden space-y-4">
+            {journeySteps.map((step, index) => (
+              <div 
+                key={index}
+                className={`border border-border rounded-2xl overflow-hidden transition-all duration-300 ${
+                  activeStep === index ? 'border-primary shadow-lg' : ''
+                }`}
+              >
+                <div 
+                  className="p-6 cursor-pointer flex items-center justify-between"
+                  onClick={() => setActiveStep(activeStep === index ? -1 : index)}
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                      activeStep === index 
+                        ? `bg-gradient-to-br from-${step.color} to-${step.color}/70 text-white` 
+                        : 'bg-muted text-muted-foreground'
+                    }`}>
+                      {React.createElement(step.icon, { className: "w-6 h-6" })}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold">{step.title}</h3>
+                      <p className="text-sm text-muted-foreground">Step {step.number}</p>
+                    </div>
+                  </div>
+                  <ArrowRight className={`w-5 h-5 transition-transform ${
+                    activeStep === index ? 'rotate-90' : ''
+                  }`} />
+                </div>
+                
+                {activeStep === index && (
+                  <div className="px-6 pb-6 animate-fade-in-up">
+                    <p className="text-muted-foreground mb-4">{step.description}</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {step.details.map((detail, detailIndex) => (
+                        <div key={detailIndex} className="flex items-center text-sm">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                          <span>{detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>

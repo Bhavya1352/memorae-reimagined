@@ -1,59 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sparkles, Zap } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed top-0 w-full z-50 glass-effect">
-      <div className="container mx-auto px-4 py-4">
+    <>
+      {/* Black Friday Banner */}
+      <div className="fixed top-0 w-full z-50 bg-gradient-to-r from-red-600 to-orange-600 text-white text-center py-2 text-sm font-bold">
+        🔥 BF20: 20% OFF Black Friday. Valid until 11/30! 🔥
+      </div>
+      
+      <nav className={`fixed top-8 w-full z-50 transition-all duration-500 ${
+        scrolled 
+          ? 'bg-slate-950/80 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl shadow-purple-500/10' 
+          : 'bg-transparent'
+      }`}>
+      <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-full gradient-full animate-gradient"></div>
-            <span className="text-2xl font-display font-bold gradient-text">Memorae</span>
-          </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-foreground hover:text-primary transition-colors">Features</a>
-            <a href="#how-it-works" className="text-foreground hover:text-primary transition-colors">How It Works</a>
-            <a href="#testimonials" className="text-foreground hover:text-primary transition-colors">Testimonials</a>
-            <Button variant="outline" className="border-border hover:border-primary">
-              Sign In
-            </Button>
-            <Button className="bg-primary hover:bg-primary-dark text-primary-foreground">
-              Get Started
-            </Button>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-4 animate-fade-in-up">
-            <a href="#features" className="block text-foreground hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Features</a>
-            <a href="#how-it-works" className="block text-foreground hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>How It Works</a>
-            <a href="#testimonials" className="block text-foreground hover:text-primary transition-colors" onClick={() => setIsOpen(false)}>Testimonials</a>
-            <div className="flex flex-col space-y-2 pt-4">
-              <Button variant="outline" className="w-full border-border hover:border-primary">
-                Sign In
-              </Button>
-              <Button className="w-full bg-primary hover:bg-primary-dark text-primary-foreground">
-                Get Started
-              </Button>
-            </div>
+          <div className="md:hidden mt-6 pb-6 animate-fade-in-up bg-slate-900/50 backdrop-blur-xl rounded-2xl p-6 border border-purple-500/20">
+            <Button 
+              onClick={() => {
+                window.open('https://wa.me/1234567890?text=Hi%20LifeBot!%20I%20want%20to%20get%20started%20with%20AI%20assistant', '_blank');
+                setIsOpen(false);
+              }}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 rounded-xl"
+            >
+              <Zap className="w-4 h-4 mr-2" />
+              Get Started
+            </Button>
           </div>
         )}
       </div>
     </nav>
+    </>
   );
 };
 
