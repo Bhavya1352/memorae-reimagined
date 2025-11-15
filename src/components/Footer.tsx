@@ -12,7 +12,7 @@ const Footer = () => {
               <span className="text-2xl font-display font-bold gradient-text">Memorae</span>
             </div>
             <p className="text-muted-foreground mb-4">
-              AI-powered memory preservation for generations to come.
+              Your personal AI memory assistant that never forgets.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">

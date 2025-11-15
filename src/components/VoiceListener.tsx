@@ -1,31 +1,83 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Mic, MicOff } from "lucide-react";
 
 const VoiceListener = () => {
   const [isListening, setIsListening] = useState(false);
   const [status, setStatus] = useState("Ready to listen");
   const [transcript, setTranscript] = useState("");
+  const recognitionRef = useRef<any>(null);
+
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = true;
+      recognitionRef.current.interimResults = true;
+      
+      recognitionRef.current.onstart = () => {
+        setStatus("Listening...");
+      };
+      
+      recognitionRef.current.onresult = (event: any) => {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        if (finalTranscript) {
+          setStatus("Processing...");
+          setTranscript(finalTranscript);
+          setTimeout(() => {
+            setStatus("Memory captured!");
+            setTimeout(() => {
+              setIsListening(false);
+              setStatus("Ready to listen");
+            }, 2000);
+          }, 1000);
+        }
+      };
+      
+      recognitionRef.current.onerror = () => {
+        setStatus("Error - Please try again");
+        setIsListening(false);
+      };
+    }
+  }, []);
 
   const startListening = () => {
-    setIsListening(true);
-    setStatus("Listening...");
-    
-    // Simulate voice processing
-    setTimeout(() => {
-      setStatus("Processing...");
+    if (recognitionRef.current) {
+      setIsListening(true);
+      setTranscript("");
+      recognitionRef.current.start();
+    } else {
+      // Fallback for unsupported browsers
+      setIsListening(true);
+      setStatus("Listening...");
       setTimeout(() => {
-        setTranscript("Meeting with Sarah about Q4 planning and budget allocation for new features");
-        setStatus("Summary created!");
+        setStatus("Processing...");
         setTimeout(() => {
-          setIsListening(false);
-          setStatus("Ready to listen");
-        }, 2000);
-      }, 1500);
-    }, 3000);
+          setTranscript("Voice recognition not supported in this browser. Try Chrome or Edge.");
+          setStatus("Demo mode");
+          setTimeout(() => {
+            setIsListening(false);
+            setStatus("Ready to listen");
+          }, 3000);
+        }, 1500);
+      }, 2000);
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+    }
+    setIsListening(false);
+    setStatus("Ready to listen");
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 to-purple-900 text-white">
+    <section id="voice-demo" className="py-20 bg-gradient-to-br from-slate-900 to-purple-900 text-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           {/* Header */}
@@ -60,7 +112,7 @@ const VoiceListener = () => {
                   ? 'bg-gradient-to-r from-blue-500 to-purple-500 shadow-2xl shadow-blue-500/50 scale-110' 
                   : 'bg-gradient-to-r from-gray-700 to-gray-600 hover:from-blue-600 hover:to-purple-600 hover:scale-105'
               }`}
-              onClick={startListening}
+              onClick={isListening ? stopListening : startListening}
             >
               {isListening ? (
                 <div className="flex items-center justify-center">

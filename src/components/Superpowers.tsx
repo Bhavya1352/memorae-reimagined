@@ -85,11 +85,20 @@ const Superpowers = () => {
           </div>
 
           {/* Voice notes that become tasks */}
-          <div className="bg-gray-50 rounded-3xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="bg-gradient-to-br from-purple-100 to-indigo-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 group" onClick={() => {
+            const element = event.currentTarget;
+            element.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              element.style.transform = 'scale(1.05)';
+              setTimeout(() => {
+                element.style.transform = 'scale(1)';
+              }, 150);
+            }, 100);
+          }}>
+            <h3 className="text-2xl font-bold text-purple-800 mb-4 group-hover:text-purple-900">
               Voice notes that become tasks
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-purple-600 mb-6">
               Your voice is enough. Memorae listens, transcribes, and organizes what you say. That easy.
             </p>
             
@@ -113,11 +122,20 @@ const Superpowers = () => {
           </div>
 
           {/* Unlimited automatic reminders */}
-          <div className="bg-gray-50 rounded-3xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="bg-gradient-to-br from-orange-100 to-red-100 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:scale-105 group" onClick={() => {
+            const element = event.currentTarget;
+            element.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              element.style.transform = 'scale(1.05)';
+              setTimeout(() => {
+                element.style.transform = 'scale(1)';
+              }, 150);
+            }, 100);
+          }}>
+            <h3 className="text-2xl font-bold text-orange-800 mb-4 group-hover:text-orange-900">
               Unlimited automatic reminders
             </h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-orange-600 mb-6">
               Unique or repeating. Weekly, monthly, with or without excuses. Scheduled or spontaneous — Memorae reminds you whenever needed!
             </p>
             

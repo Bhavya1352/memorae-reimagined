@@ -115,8 +115,8 @@ const Hero = () => {
                 size="lg" 
                 variant="outline" 
                 onClick={() => {
-                  const demoSection = document.querySelector('[data-demo-section]');
-                  demoSection?.scrollIntoView({ behavior: 'smooth' });
+                  const voiceSection = document.getElementById('voice-demo');
+                  voiceSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="border-2 border-white/50 bg-white/10 text-white hover:bg-white/20 hover:border-white/70 px-10 py-7 text-xl font-bold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-white/20"
               >
