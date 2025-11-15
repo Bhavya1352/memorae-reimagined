@@ -82,46 +82,45 @@ const Hero = () => {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tight text-left">
-              Your Personal
+            <h1 className="text-5xl md:text-6xl font-bold leading-tight tracking-tight text-left">
+              Never Forget Important
               <br />
-              <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
-                Memory
+              <span className="bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 bg-clip-text text-transparent">
+                Moments
               </span>
-              <br />
-              Assistant
+              {" "}Again
             </h1>
             
             {/* Subtitle */}
-            <div className="text-xl lg:text-2xl font-bold text-gray-300 text-left">
-              Remember Everything, <span className="text-white">Forget Nothing</span>
-            </div>
+            <p className="text-xl text-gray-300 text-left leading-relaxed">
+              Your AI-powered memory assistant captures, organizes, and recalls everything through natural conversation.
+            </p>
             
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
                 onClick={() => {
                   const pricingSection = document.getElementById('pricing');
                   pricingSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="group bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 hover:from-purple-700 hover:via-pink-700 hover:to-red-700 text-white px-10 py-7 text-xl font-bold rounded-2xl shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105"
+                className="group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-purple-500/30 transition-all duration-200 hover:scale-[1.03]"
               >
-                Start Remembering
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                Get Started Free
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
               
               <Button 
                 size="lg" 
-                variant="outline" 
+                variant="ghost" 
                 onClick={() => {
                   const voiceSection = document.getElementById('voice-demo');
                   voiceSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="border-2 border-white/50 bg-white/10 text-white hover:bg-white/20 hover:border-white/70 px-10 py-7 text-xl font-bold rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-white/20"
+                className="text-white hover:bg-white/10 px-8 py-4 text-lg rounded-xl transition-all duration-200 hover:scale-[1.03]"
               >
-                <Sparkles className="mr-3 w-6 h-6" />
-                Watch Magic
+                <Sparkles className="mr-2 w-5 h-5" />
+                Watch Demo
               </Button>
             </div>
           </div>
